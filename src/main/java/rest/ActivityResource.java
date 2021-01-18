@@ -8,12 +8,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dtos.ActivityDTO;
 import dtos.CityInfoDTO;
+import dtos.WeatherInfoDTO;
 import entities.Activity;
 import entities.CityInfo;
 import entities.WeatherInfo;
 import errorhandling.API_Exception;
 import facades.ActivityFacade;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
@@ -73,22 +75,45 @@ public class ActivityResource {
         return "{\"msg\":\"Activity added\"}";
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("city/{name}")
-//    public String getCityInfo(@PathParam("name") String name) throws IOException {        
-//        String weatherInfo = HttpUtils.fetchData("https://vejr.eu/api.php?location=" + name + "&degree=C");
-//        
-//        JsonObject json = JsonParser.parseString(weatherInfo).getAsJsonObject();
-//        
-//        JsonElement infoAsJson = json.get("CurrentData");
-//        
-//     
-//        
-//        WeatherInfo info = gson.fromJson(infoAsJson, WeatherInfo.class);
-//        
-//       
-//        
-//        return "";
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getActivities/{username}")
+    @RolesAllowed("user")
+    public String getActivities(@PathParam("username") String username) {
+        ArrayList<ActivityDTO> acts = ACTIVITY_FACADE.getUserActivities(username);
+        return gson.toJson(acts);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("count")
+    public String countActivities() {
+        int amount = ACTIVITY_FACADE.countActivities();
+        return gson.toJson(amount);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("city/{cityname}")
+    public String getCityInfo(@PathParam("cityname") String cityname) throws IOException {
+        try {
+            CityInfoDTO cityDTO = ACTIVITY_FACADE.getCityInfoDTO(cityname);
+            return gson.toJson(cityDTO);
+        } catch (Exception e) {
+            return "{\"msg\":\"City not found\"}";
+        }
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("weather/{cityname}")
+    public String getWeatherInfo(@PathParam("cityname") String cityname) throws IOException {
+        try {
+            WeatherInfoDTO weatherDTO = ACTIVITY_FACADE.getWeatherInfoDTO(cityname);
+            return gson.toJson(weatherDTO);
+        } catch (Exception e) {
+            return "{\"msg\":\"Weather info not found\"}";
+        }
+    }
+    
 }

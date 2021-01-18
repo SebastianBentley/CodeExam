@@ -7,13 +7,17 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dtos.ActivityDTO;
 import dtos.CityInfoDTO;
+import dtos.WeatherInfoDTO;
 import entities.Activity;
 import entities.CityInfo;
 import entities.User;
 import entities.WeatherInfo;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import utils.HttpUtils;
 
 public class ActivityFacade {
@@ -55,15 +59,16 @@ public class ActivityFacade {
             } else {
                 city.addActivity(act);
             }
-            
+
             //WeatherInfo
             weather = getWeatherInfo(cityName);
             em.persist(weather);
             act.addWeatherInfo(weather);
-            
+
+            //User
             User user = em.find(User.class, userName);
             user.addActivity(act);
-            
+
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -102,6 +107,60 @@ public class ActivityFacade {
         WeatherInfo info = gson.fromJson(infoAsJson, WeatherInfo.class);
 
         return info;
+    }
+
+    public ArrayList<ActivityDTO> getUserActivities(String username) {
+        ArrayList<ActivityDTO> acts = new ArrayList<>();
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            TypedQuery<Activity> query = em.createQuery("SELECT a FROM Activity a WHERE a.user.userName = :username", Activity.class);
+            List<Activity> queryActs = query.setParameter("username", username).getResultList();
+            for (Activity act : queryActs) {
+                acts.add(new ActivityDTO(act));
+            }
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
+        return acts;
+    }
+
+    public int countActivities() {
+        EntityManager em = emf.createEntityManager();
+        int amount = 0;
+        try {
+            em.getTransaction().begin();
+            TypedQuery<Activity> query = em.createQuery("SELECT a FROM Activity a", Activity.class);
+            amount = query.getResultList().size();
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
+        return amount;
+    }
+
+    public CityInfoDTO getCityInfoDTO(String cityName) throws IOException {
+        EntityManager em = emf.createEntityManager();
+        CityInfoDTO cityDTO;
+        try {
+            em.getTransaction().begin();
+            CityInfo info = em.find(CityInfo.class, cityName);
+            cityDTO = new CityInfoDTO(info);
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
+
+        return cityDTO;
+    }
+
+    public WeatherInfoDTO getWeatherInfoDTO(String cityName) throws IOException {
+        WeatherInfoDTO weatherDTO = new WeatherInfoDTO(getWeatherInfo(cityName));
+        return weatherDTO;
     }
 
 }

@@ -69,29 +69,6 @@ public class UserResource {
 
     
 
-//    @GET
-//    @Path("dogExam")
-//    @RolesAllowed("user")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getDog() throws IOException {
-//        String randomDog = HttpUtils.fetchData("https://dog.ceo/api/breeds/image/random");
-//        RandomDogDTO randomDogDTO = gson.fromJson(randomDog, RandomDogDTO.class);
-//
-//        String json = GSON.toJson(randomDogDTO);
-//        return json;
-//    }
-//
-//    @GET
-//    @Path("kanyeExam")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getKanye() throws IOException {
-//
-//        String kanye = HttpUtils.fetchData("https://api.kanye.rest/");
-//        KanyeDTO kanyeDTO = gson.fromJson(kanye, KanyeDTO.class);
-//
-//        String json = GSON.toJson(kanyeDTO);
-//        return json;
-//    }
 
 
 }
