@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,9 @@ public class User implements Serializable {
         @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Activity> activities;
 
     @Column(name = "user_age")
     private String age;
@@ -44,8 +48,7 @@ public class User implements Serializable {
     @Column(name = "user_weights")
     private String weight;
 
-//    @OneToOne(cascade = CascadeType.PERSIST)
-//    private FavTVShow favoriteTVShow;
+    
     public List<String> getRolesAsStrings() {
         if (roleList.isEmpty()) {
             return null;
@@ -72,17 +75,18 @@ public class User implements Serializable {
         this.weight = weight;
     }
 
-//    public FavTVShow getFavoriteTVShow() {
-//        return favoriteTVShow;
-//    }
-//    
-//
-//    public void setFavoriteTVShow(FavTVShow favoriteTVShow) {
-//        this.favoriteTVShow = favoriteTVShow;
-//        if(favoriteTVShow != null){
-//            favoriteTVShow.setUser(this);
-//        }
-//    }
+
+    public void addActivity(Activity activity){
+        this.activities.add(activity);
+        if(activity != null) {
+            activity.setUser(this);
+        }
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+    
     public String getUserName() {
         return userName;
     }

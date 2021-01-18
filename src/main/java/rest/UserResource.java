@@ -4,9 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dtos.KanyeDTO;
-import dtos.RandomDogDTO;
-import entities.FavTVShow;
 import entities.User;
 import java.io.IOException;
 import java.util.List;
@@ -72,47 +69,29 @@ public class UserResource {
 
     
 
-    @GET
-    @Path("dogExam")
-    @RolesAllowed("user")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getDog() throws IOException {
-        String randomDog = HttpUtils.fetchData("https://dog.ceo/api/breeds/image/random");
-        RandomDogDTO randomDogDTO = gson.fromJson(randomDog, RandomDogDTO.class);
+//    @GET
+//    @Path("dogExam")
+//    @RolesAllowed("user")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getDog() throws IOException {
+//        String randomDog = HttpUtils.fetchData("https://dog.ceo/api/breeds/image/random");
+//        RandomDogDTO randomDogDTO = gson.fromJson(randomDog, RandomDogDTO.class);
+//
+//        String json = GSON.toJson(randomDogDTO);
+//        return json;
+//    }
+//
+//    @GET
+//    @Path("kanyeExam")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getKanye() throws IOException {
+//
+//        String kanye = HttpUtils.fetchData("https://api.kanye.rest/");
+//        KanyeDTO kanyeDTO = gson.fromJson(kanye, KanyeDTO.class);
+//
+//        String json = GSON.toJson(kanyeDTO);
+//        return json;
+//    }
 
-        String json = GSON.toJson(randomDogDTO);
-        return json;
-    }
-
-    @GET
-    @Path("kanyeExam")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getKanye() throws IOException {
-
-        String kanye = HttpUtils.fetchData("https://api.kanye.rest/");
-        KanyeDTO kanyeDTO = gson.fromJson(kanye, KanyeDTO.class);
-
-        String json = GSON.toJson(kanyeDTO);
-        return json;
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("insertTestMovie")
-    public String insertTestMovie(String jsonString) throws IOException {
-        //DO THIS THROUGH FACADE, REMEMBER DTOS
-        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(new FavTVShow("TestMovieInsert"));
-            em.getTransaction().commit();
-
-        } finally {
-            em.close();
-        }
-
-        return "{\"msg\":\"Test Movie Inserted\"}";
-    }
 
 }
