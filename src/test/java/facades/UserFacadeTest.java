@@ -14,12 +14,12 @@ import security.errorhandling.AuthenticationException;
 
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
-public class FacadeExampleTest {
+public class UserFacadeTest {
 
     private static EntityManagerFactory emf;
     private static UserFacade facade;
 
-    public FacadeExampleTest() {
+    public UserFacadeTest() {
     }
 
     @BeforeAll
@@ -40,6 +40,7 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createQuery("DELETE from Activity").executeUpdate();
             em.createQuery("DELETE from User").executeUpdate();
             em.persist(new User("Some txt", "More text", "21", "70kg"));
             em.persist(new User("aaa", "bbb", "71", "80kg"));
@@ -60,11 +61,6 @@ public class FacadeExampleTest {
     public void testUserName() throws AuthenticationException {
         assertEquals("aaa", facade.getVeryfiedUser("aaa", "bbb").getUserName(), "Expects same name");
     }
-
-//    @Test(expected = security.errorhandling.AuthenticationException.class)
-//    public void testUserPassword() throws AuthenticationException {
-//        assertEquals("bbb", facade.getVeryfiedUser("aaa", "bbb").getUserPass(), "Expects same password");
-//    }
 
  
 

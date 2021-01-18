@@ -2,32 +2,21 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import dtos.ActivityDTO;
-import entities.Activity;
 import entities.User;
-import errorhandling.API_Exception;
 import facades.UserFacade;
-import java.io.IOException;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
-import static rest.ActivityResource.ACTIVITY_FACADE;
-import security.errorhandling.AuthenticationException;
 import utils.EMF_Creator;
-import utils.HttpUtils;
 
 @Path("member")
 public class UserResource {

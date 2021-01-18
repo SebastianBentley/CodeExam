@@ -7,9 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import security.errorhandling.AuthenticationException;
 
-/**
- * @author lam@cphbusiness.dk
- */
+
 public class UserFacade {
 
     private static EntityManagerFactory emf;
