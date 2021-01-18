@@ -28,8 +28,8 @@ public class FavTVShow implements Serializable {
 
     private String name;
 
-    @OneToOne(mappedBy = "favoriteTVShow")
-    private User user;
+//    @OneToOne(mappedBy = "favoriteTVShow")
+//    private User user;
 
     public FavTVShow(String name) {
         this.name = name;
@@ -46,13 +46,13 @@ public class FavTVShow implements Serializable {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public Long getId() {
         return id;

@@ -25,11 +25,9 @@ import javax.ws.rs.core.SecurityContext;
 import utils.EMF_Creator;
 import utils.HttpUtils;
 
-/**
- * @author lam@cphbusiness.dk
- */
-@Path("info")
-public class DemoResource {
+
+@Path("member")
+public class UserResource {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private Gson gson = new Gson();
@@ -72,14 +70,7 @@ public class DemoResource {
         return "{\"msg\": \"Hello to User: " + thisuser + "\"}";
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("admin")
-    @RolesAllowed("admin")
-    public String getFromAdmin() {
-        String thisuser = securityContext.getUserPrincipal().getName();
-        return "{\"msg\": \"Hello to (admin) User: " + thisuser + "\"}";
-    }
+    
 
     @GET
     @Path("dogExam")

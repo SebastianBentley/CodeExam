@@ -1,5 +1,7 @@
 package facades;
 
+import dtos.UserDTO;
+import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -41,6 +43,27 @@ public class UserFacade {
             em.close();
         }
         return user;
+    }
+
+    public UserDTO registerUser(String username, String password, String age, String weight) throws IllegalAccessException {
+        EntityManager em = emf.createEntityManager();
+        if (username.equals("") || password.equals("")) {
+            throw new IllegalAccessException("Username or password must not be empty");
+        }
+
+        User user = new User(username, password, age, weight);
+        Role userRole = new Role("user");
+        user.addRole(userRole);
+
+        try {
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new UserDTO(user);
+
     }
 
 }

@@ -37,10 +37,15 @@ public class User implements Serializable {
         @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
-    
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private FavTVShow favoriteTVShow;
 
+    @Column(name = "user_age")
+    private String age;
+
+    @Column(name = "user_weights")
+    private String weight;
+
+//    @OneToOne(cascade = CascadeType.PERSIST)
+//    private FavTVShow favoriteTVShow;
     public List<String> getRolesAsStrings() {
         if (roleList.isEmpty()) {
             return null;
@@ -60,27 +65,24 @@ public class User implements Serializable {
         return (BCrypt.checkpw(pw, this.userPass));
     }
 
-    public User(String userName, String userPass) {
+    public User(String userName, String userPass, String age, String weight) {
         this.userName = userName;
-
         this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt(12));
+        this.age = age;
+        this.weight = weight;
     }
 
-    public FavTVShow getFavoriteTVShow() {
-        return favoriteTVShow;
-    }
-    
-
-    public void setFavoriteTVShow(FavTVShow favoriteTVShow) {
-        this.favoriteTVShow = favoriteTVShow;
-        if(favoriteTVShow != null){
-            favoriteTVShow.setUser(this);
-        }
-    }
-    
-    
-    
-
+//    public FavTVShow getFavoriteTVShow() {
+//        return favoriteTVShow;
+//    }
+//    
+//
+//    public void setFavoriteTVShow(FavTVShow favoriteTVShow) {
+//        this.favoriteTVShow = favoriteTVShow;
+//        if(favoriteTVShow != null){
+//            favoriteTVShow.setUser(this);
+//        }
+//    }
     public String getUserName() {
         return userName;
     }
@@ -107,6 +109,22 @@ public class User implements Serializable {
 
     public void addRole(Role userRole) {
         roleList.add(userRole);
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
 }

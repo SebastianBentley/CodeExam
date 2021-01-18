@@ -41,8 +41,8 @@ public class FacadeExampleTest {
         try {
             em.getTransaction().begin();
             em.createQuery("DELETE from User").executeUpdate();
-            em.persist(new User("Some txt", "More text"));
-            em.persist(new User("aaa", "bbb"));
+            em.persist(new User("Some txt", "More text", "21", "70kg"));
+            em.persist(new User("aaa", "bbb", "71", "80kg"));
 
             em.getTransaction().commit();
         } finally {
