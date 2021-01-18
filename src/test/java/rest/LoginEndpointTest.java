@@ -125,18 +125,6 @@ public class LoginEndpointTest {
                 .body("msg", equalTo("Hello anonymous"));
     }
 
-//    @Test
-//    public void testRestForAdmin() {
-//        login("admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .accept(ContentType.JSON)
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .get("/member/admin").then()
-//                .statusCode(200)
-//                .body("msg", equalTo("Hello to (admin) User: admin"));
-//    }
 
     @Test
     public void testRestForUser() {
@@ -150,16 +138,6 @@ public class LoginEndpointTest {
                 .body("msg", equalTo("Hello to User: user"));
     }
 
-//    @Test
-//    public void testAutorizedUserCannotAccesAdminPage() {
-//        login("user", "test");
-//        given()
-//                .contentType("application/json")
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .get("/member/admin").then() //Call Admin endpoint as user
-//                .statusCode(401);
-//    }
 
     @Test
     public void testAutorizedAdminCannotAccesUserPage() {
@@ -172,30 +150,6 @@ public class LoginEndpointTest {
                 .statusCode(401);
     }
 
-//    @Test
-//    public void testRestForMultiRole1() {
-//        login("user_admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .accept(ContentType.JSON)
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .get("/member/admin").then()
-//                .statusCode(200)
-//                .body("msg", equalTo("Hello to (admin) User: user_admin"));
-//    }
-
-//    @Test
-//    public void testRestForMultiRole2() {
-//        login("user_admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .get("/member/user").then()
-//                .statusCode(200)
-//                .body("msg", equalTo("Hello to User: user_admin"));
-//    }
 
     @Test
     public void userNotAuthenticated() {
@@ -220,15 +174,6 @@ public class LoginEndpointTest {
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));
     }
-//    @Test
-//    public void externAccess() {
-//        login("user_admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .get("/info/extern").then()
-//                .statusCode(200);
-//    }
+
 
 }

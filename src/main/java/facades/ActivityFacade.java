@@ -51,14 +51,14 @@ public class ActivityFacade {
             em.getTransaction().begin();
 
             //CityInfo
-            city = em.find(CityInfo.class, cityName);
-            if (city == null) {
-                city = getCityInfo(cityName);
-                em.persist(city);
-                city.addActivity(act);
-            } else {
-                city.addActivity(act);
-            }
+//            city = em.find(CityInfo.class, cityName);
+//            if (city == null) {
+//                city = getCityInfo(cityName);
+//                em.persist(city);
+//                city.addActivity(act);
+//            } else {
+//                city.addActivity(act);
+//            }
 
             //WeatherInfo
             weather = getWeatherInfo(cityName);
