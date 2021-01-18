@@ -89,7 +89,7 @@ public class ActivityResource {
     @Path("count")
     public String countActivities() {
         int amount = ACTIVITY_FACADE.countActivities();
-        return gson.toJson(amount);
+        return "{\"count\":\""+ amount +"\"}";
     }
 
     @GET

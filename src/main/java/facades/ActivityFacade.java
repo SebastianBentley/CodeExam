@@ -52,9 +52,9 @@ public class ActivityFacade {
 
 //            city = em.find(CityInfo.class, cityName);
 //            if (city == null) {
-                city = getCityInfo(cityName);
-                em.persist(city);
-                city.addActivity(act);
+//                city = getCityInfo(cityName);
+//                em.persist(city);
+//                city.addActivity(act);
 //            } else {
 //                city.addActivity(act);
 //            }
