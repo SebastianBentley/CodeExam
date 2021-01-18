@@ -75,25 +75,5 @@ public class UserResource {
         return "{\"msg\": \"Hello to User: " + thisuser + "\"}";
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("register")
-    public String createActivity(String jsonString) throws API_Exception, AuthenticationException {
-
-        try {
-            JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
-            String username = json.get("username").getAsString();
-            String password = json.get("password").getAsString();
-            String age = json.get("age").getAsString();
-            String weight = json.get("weight").getAsString();
-
-            USER_FACADE.registerUser(username, password, age, weight);
-            
-        } catch (Exception e) {
-            return "{\"msg\":\"Something went wrong\"}";
-        }
-        return "{\"msg\":\"User Registered\"}";
-    }
 
 }
