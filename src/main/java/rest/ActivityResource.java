@@ -3,12 +3,14 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dtos.ActivityDTO;
 import dtos.CityInfoDTO;
 import entities.Activity;
 import entities.CityInfo;
+import entities.WeatherInfo;
 import errorhandling.API_Exception;
 import facades.ActivityFacade;
 import java.io.IOException;
@@ -75,7 +77,18 @@ public class ActivityResource {
 //    @Produces(MediaType.APPLICATION_JSON)
 //    @Path("city/{name}")
 //    public String getCityInfo(@PathParam("name") String name) throws IOException {        
-//        CityInfoDTO cityDTO = new CityInfoDTO(ACTIVITY_FACADE.getCityInfo(name));
-//        return GSON.toJson(cityDTO);
+//        String weatherInfo = HttpUtils.fetchData("https://vejr.eu/api.php?location=" + name + "&degree=C");
+//        
+//        JsonObject json = JsonParser.parseString(weatherInfo).getAsJsonObject();
+//        
+//        JsonElement infoAsJson = json.get("CurrentData");
+//        
+//     
+//        
+//        WeatherInfo info = gson.fromJson(infoAsJson, WeatherInfo.class);
+//        
+//       
+//        
+//        return "";
 //    }
 }
